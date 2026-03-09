@@ -1,0 +1,5 @@
+mutation JoinGame($data: JoinGameInput!) {
+    joinGame(data: $data) {
+        ...GameParticipant
+    }
+}

@@ -1,0 +1,8 @@
+query GameParticipants($gameId: Int!){
+      gameParticipants(gameId: $gameId) {
+          ...GameParticipant
+      }
+}
+
+
+

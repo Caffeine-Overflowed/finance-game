@@ -1,0 +1,5 @@
+mutation chooseOption($choiceId: Int!) {
+  chooseOption(choiceId: $choiceId) {
+    ...GameChoice
+  }
+}

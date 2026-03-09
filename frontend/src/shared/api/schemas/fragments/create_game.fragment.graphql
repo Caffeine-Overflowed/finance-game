@@ -1,0 +1,6 @@
+fragment GameType on GameType {
+    id
+    code
+    status
+    gameSettingId
+}

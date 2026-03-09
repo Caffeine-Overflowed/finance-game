@@ -1,0 +1,11 @@
+query GameState($gameId: Int!){
+  gameState(gameId: $gameId) {
+    ...GameState
+  }
+}
+
+query GameStateByCode($code: String!){
+  gameStateByCode(gameCode: $code) {
+    ...GameState
+  }
+}

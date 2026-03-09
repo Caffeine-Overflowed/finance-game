@@ -1,0 +1,6 @@
+fragment GameParticipant on GameParticipationType {
+    id
+    name
+    leader
+    self
+}

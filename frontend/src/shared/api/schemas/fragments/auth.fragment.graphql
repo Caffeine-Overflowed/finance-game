@@ -1,0 +1,8 @@
+fragment AuthenticateTypeFragment on AuthenticateType {
+    user {
+      id
+      email
+      createdAt
+    }
+    accessToken
+}

@@ -1,0 +1,16 @@
+fragment GameChoice on GameChoiceType {
+    id
+    title
+    description
+    chosen
+}
+
+fragment GameChosenChoice on GameChosenChoiceType {
+    participation {
+        ...GameParticipant
+    }
+    titleForEveryone
+    result
+    self
+    resultTags
+}

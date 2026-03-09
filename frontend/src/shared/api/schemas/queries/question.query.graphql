@@ -1,0 +1,5 @@
+query CurrentGameQuestions($gameId: Int!){
+  currentGameQuestions(gameId: $gameId) {
+    ...GameQuestion
+  }
+}

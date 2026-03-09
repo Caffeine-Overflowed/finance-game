@@ -1,0 +1,16 @@
+mutation register($data: RegisterInput!) {
+  register(data: $data) {
+    ...AuthenticateTypeFragment
+  }
+}
+
+mutation createOauthUrl($data: OAuthUrlInput!){
+  createOauthUrl(data: $data)
+
+}
+
+mutation oauthAuthenticate($data: OAuthInput!) {
+  oauthAuthenticate(data: $data) {
+    ...AuthenticateTypeFragment
+  }
+}

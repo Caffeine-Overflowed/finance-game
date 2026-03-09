@@ -1,0 +1,181 @@
+type AdditionalResultItemType {
+  description: String!
+  id: Int!
+  title: String!
+}
+
+type AuthenticateType {
+  accessToken: String!
+  user: UserType!
+}
+
+input CreateGameInput {
+  leaderName: String!
+}
+
+"""Date with time (isoformat)"""
+scalar DateTime
+
+type GameChoiceType {
+  chosen: Boolean!
+  description: String!
+  id: Int!
+  title: String!
+}
+
+type GameChosenChoiceType {
+  participation: GameParticipationType!
+  result: String
+  resultTags: [String!]!
+  self: Boolean!
+  titleForEveryone: String!
+}
+
+type GameParticipationType {
+  id: Int!
+  leader: Boolean!
+  name: String!
+  self: Boolean!
+}
+
+type GameQuestionType {
+  answered: Boolean!
+  choices: [GameChoiceType!]!
+  id: Int!
+  title: String!
+}
+
+type GameResultType {
+  additionalResults: [AdditionalResultItemType!]
+  description: String!
+  participant: GameParticipationType!
+  score: Int!
+}
+
+type GameStateType {
+  code: String!
+  currentTurnIndex: Int!
+  id: Int!
+  isLeader: Boolean!
+  status: GameStatusEnum!
+  totalTurns: Int!
+  turns: [GameTurnType!]!
+}
+
+enum GameStatusEnum {
+  ended
+  generating_results
+  in_lobby
+  in_progress
+}
+
+type GameTurnType {
+  countConfirmed: Int!
+  hasConfirmed: Boolean!
+  id: Int!
+  index: Int!
+  status: TurnStatusEnum!
+  year: Int!
+}
+
+type GameType {
+  code: String!
+  gameSettingId: Int!
+  id: Int!
+  status: GameStatusEnum!
+}
+
+input JoinGameInput {
+  gameId: Int!
+  participationName: String!
+}
+
+type Mutation {
+  """Make a choice for the current question"""
+  chooseOption(choiceId: Int!): GameChoiceType!
+
+  """Confirm the turn has been viewed by the participant."""
+  confirmTurn(gameId: Int!): GameTurnType!
+
+  """create a new game (lobby), set name to the leader"""
+  createGame(data: CreateGameInput!): GameType!
+
+  """Получить URL для OAuth авторизации"""
+  createOauthUrl(data: OAuthUrlInput!): String!
+
+  """Join a game (lobby)"""
+  joinGame(data: JoinGameInput!): GameParticipationType!
+
+  """Вход через OAuth"""
+  oauthAuthenticate(data: OAuthInput!): AuthenticateType!
+
+  """Регистрация нового пользователя"""
+  register(data: RegisterInput!): AuthenticateType!
+
+  """start a new game (lobby)"""
+  startGame(gameId: Int!): GameType!
+}
+
+"""Input model for oauth login/register"""
+input OAuthInput {
+  """Authorization code from OAuth provider"""
+  code: String!
+
+  """State parameter from OAuth provider"""
+  state: String!
+}
+
+enum OAuthProvider {
+  GOOGLE
+}
+
+input OAuthUrlInput {
+  provider: OAuthProvider!
+  redirectUri: String!
+}
+
+type Query {
+  """Get current questions for the participant."""
+  currentGameQuestions(gameId: Int!): [GameQuestionType!]!
+
+  """Get a sorted list of participants for a game in lobby."""
+  gameParticipants(gameId: Int!): [GameParticipationType!]!
+
+  """Result of a game for a participant after the game ends"""
+  gameResult(gameId: Int!): [GameResultType!]!
+
+  """
+  Get the current state of the game. Polled while game.status = in_progress, and getting on refresh
+  """
+  gameState(gameId: Int!): GameStateType!
+
+  """
+  Get game state by game code. Allows access to lobby for non-participants.
+  """
+  gameStateByCode(gameCode: String!): GameStateType!
+
+  """Get chosen choices by all participants for the last completed turn."""
+  gameTurnChoices(gameId: Int!): [GameChosenChoiceType!]!
+
+  """Login with credentials"""
+  login(email: String!, password: String!): AuthenticateType!
+}
+
+input RegisterInput {
+  email: String!
+  password: String!
+}
+
+enum TurnStatusEnum {
+  answered
+  confirmed
+  generating
+  not_started
+  waiting_for_answers
+}
+
+type UserType {
+  createdAt: DateTime!
+  email: String!
+  id: Int!
+}

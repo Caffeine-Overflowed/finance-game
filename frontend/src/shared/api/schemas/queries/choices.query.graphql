@@ -1,0 +1,5 @@
+query GameTurnChoices($gameId: Int!){
+      gameTurnChoices(gameId: $gameId) {
+          ...GameChosenChoice
+      }
+}

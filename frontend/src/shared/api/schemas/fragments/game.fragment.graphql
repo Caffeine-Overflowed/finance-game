@@ -1,0 +1,18 @@
+fragment GameState on GameStateType {
+    id
+    code
+    status
+    currentTurnIndex
+    totalTurns
+    isLeader
+    turns {
+      ...GameTurn
+    }
+}
+
+fragment Game on GameType {
+    id
+    code
+    status
+}
+

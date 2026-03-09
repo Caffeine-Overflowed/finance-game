@@ -1,0 +1,11 @@
+fragment GameQuestion on GameQuestionType {
+    id
+    title
+    choices {
+      id
+      title
+      description
+      chosen
+    }
+    answered
+}

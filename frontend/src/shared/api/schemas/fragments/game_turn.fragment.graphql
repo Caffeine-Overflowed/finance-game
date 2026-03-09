@@ -1,0 +1,8 @@
+  fragment GameTurn on GameTurnType {
+  id
+  index
+  year
+  status
+  countConfirmed
+  hasConfirmed
+}

@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:latest
+    command: postgres -c listen_addresses='*' -c hba_file=/etc/postgresql/pg_hba.conf
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: app
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+      - ./pg_hba.conf:/etc/postgresql/pg_hba.conf
+
+
+  redis:
+   image: redis:latest
+   ports:
+     - 6379:6379
+   volumes:
+     - ./redis_data:/data

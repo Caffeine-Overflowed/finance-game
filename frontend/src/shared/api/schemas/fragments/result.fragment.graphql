@@ -1,0 +1,15 @@
+fragment GameResult on GameResultType {
+    participant {
+      id
+      name
+      leader
+      self
+    }
+    score
+    description
+    additionalResults {
+      id
+      title
+      description
+    }
+}

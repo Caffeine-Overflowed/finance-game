@@ -1,0 +1,5 @@
+query GameResult($gameId: Int!){
+  gameResult(gameId: $gameId) {
+    ...GameResult
+  }
+}
